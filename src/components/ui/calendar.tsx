@@ -1,7 +1,7 @@
 
 import * as React from "react";
 import { ChevronLeft, ChevronRight, ChevronUp, ChevronDown } from "lucide-react";
-import { DayPicker, CaptionProps as DayPickerCaptionProps } from "react-day-picker";
+import { DayPicker, CaptionProps } from "react-day-picker";
 
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
@@ -53,8 +53,8 @@ function Calendar({
         ...classNames,
       }}
       components={{
-        Caption: (props: DayPickerCaptionProps) => {
-          const currentMonth = props.displayMonth;
+        Caption: ({ displayMonth, onMonthChange }: CaptionProps) => {
+          const currentMonth = displayMonth;
           const currentYear = currentMonth.getFullYear();
           const currentMonthName = currentMonth.toLocaleString('default', { month: 'long' });
           
@@ -68,7 +68,7 @@ function Calendar({
                 )}
                 onClick={() => {
                   const prevYear = new Date(currentYear - 1, currentMonth.getMonth(), 1);
-                  props.onSelect && props.onSelect(prevYear);
+                  onMonthChange && onMonthChange(prevYear);
                 }}
               >
                 <ChevronUp className="h-4 w-4" />
@@ -84,7 +84,7 @@ function Calendar({
                 )}
                 onClick={() => {
                   const nextYear = new Date(currentYear + 1, currentMonth.getMonth(), 1);
-                  props.onSelect && props.onSelect(nextYear);
+                  onMonthChange && onMonthChange(nextYear);
                 }}
               >
                 <ChevronDown className="h-4 w-4" />
