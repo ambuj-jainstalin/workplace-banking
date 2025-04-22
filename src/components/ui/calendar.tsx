@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, ChevronUp, ChevronDown } from "lucide-react";
 import { DayPicker } from "react-day-picker";
 
 import { cn } from "@/lib/utils";
@@ -16,11 +16,11 @@ function Calendar({
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
-      className={cn("p-3", className)}
+      className={cn("p-3 pointer-events-auto", className)}
       classNames={{
         months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
         month: "space-y-4",
-        caption: "flex justify-center pt-1 relative items-center",
+        caption: "flex justify-center pt-1 relative items-center space-x-2",
         caption_label: "text-sm font-medium",
         nav: "space-x-1 flex items-center",
         nav_button: cn(
@@ -52,6 +52,44 @@ function Calendar({
         ...classNames,
       }}
       components={{
+        Caption: ({ label, ...captionProps }) => {
+          const [month, year] = label.split(' ');
+          const currentYear = parseInt(year, 10);
+          
+          return (
+            <div className="flex items-center justify-center space-x-2">
+              <button 
+                type="button" 
+                className={cn(
+                  buttonVariants({ variant: "ghost", size: "sm" }),
+                  "h-7 w-7 p-0"
+                )}
+                onClick={() => {
+                  const prevYear = currentYear - 1;
+                  captionProps.onMonthChange(new Date(prevYear, captionProps.month.getMonth()));
+                }}
+              >
+                <ChevronUp className="h-4 w-4" />
+              </button>
+              
+              <div className="text-sm font-medium">{label}</div>
+              
+              <button 
+                type="button" 
+                className={cn(
+                  buttonVariants({ variant: "ghost", size: "sm" }),
+                  "h-7 w-7 p-0"
+                )}
+                onClick={() => {
+                  const nextYear = currentYear + 1;
+                  captionProps.onMonthChange(new Date(nextYear, captionProps.month.getMonth()));
+                }}
+              >
+                <ChevronDown className="h-4 w-4" />
+              </button>
+            </div>
+          );
+        },
         IconLeft: ({ ..._props }) => <ChevronLeft className="h-4 w-4" />,
         IconRight: ({ ..._props }) => <ChevronRight className="h-4 w-4" />,
       }}
