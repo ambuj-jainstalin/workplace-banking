@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from '@/hooks/use-toast';
 import { PersonalInfoFormData, validatePersonalInfo } from '@/utils/personalInfoValidation';
 
 export const usePersonalInfoForm = () => {

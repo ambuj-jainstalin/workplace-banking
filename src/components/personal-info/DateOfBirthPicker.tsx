@@ -48,6 +48,7 @@ const DateOfBirthPicker = ({ dob, setDob, error }: DateOfBirthPickerProps) => {
               return date > today || date < minDate;
             }}
             initialFocus
+            className="pointer-events-auto"
           />
         </PopoverContent>
       </Popover>
