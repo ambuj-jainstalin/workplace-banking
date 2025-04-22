@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useToast } from '@/hooks/use-toast';
+import { useToast } from '@/components/ui/use-toast';
 import { PersonalInfoFormData, validatePersonalInfo } from '@/utils/personalInfoValidation';
 
 export const usePersonalInfoForm = () => {
@@ -23,6 +23,7 @@ export const usePersonalInfoForm = () => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
     
+    // Clear error when user starts typing
     if (errors[name]) {
       setErrors(prev => {
         const newErrors = { ...prev };
