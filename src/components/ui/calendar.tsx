@@ -1,6 +1,7 @@
+
 import * as React from "react";
 import { ChevronLeft, ChevronRight, ChevronUp, ChevronDown } from "lucide-react";
-import { DayPicker } from "react-day-picker";
+import { DayPicker, CaptionProps as DayPickerCaptionProps } from "react-day-picker";
 
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
@@ -52,9 +53,10 @@ function Calendar({
         ...classNames,
       }}
       components={{
-        Caption: ({ label, ...captionProps }) => {
-          const [month, year] = label.split(' ');
-          const currentYear = parseInt(year, 10);
+        Caption: (props: DayPickerCaptionProps) => {
+          const currentMonth = props.displayMonth;
+          const currentYear = currentMonth.getFullYear();
+          const currentMonthName = currentMonth.toLocaleString('default', { month: 'long' });
           
           return (
             <div className="flex items-center justify-center space-x-2">
@@ -65,14 +67,14 @@ function Calendar({
                   "h-7 w-7 p-0"
                 )}
                 onClick={() => {
-                  const prevYear = currentYear - 1;
-                  captionProps.onMonthChange(new Date(prevYear, captionProps.month.getMonth()));
+                  const prevYear = new Date(currentYear - 1, currentMonth.getMonth(), 1);
+                  props.onSelect && props.onSelect(prevYear);
                 }}
               >
                 <ChevronUp className="h-4 w-4" />
               </button>
               
-              <div className="text-sm font-medium">{label}</div>
+              <div className="text-sm font-medium">{currentMonthName} {currentYear}</div>
               
               <button 
                 type="button" 
@@ -81,8 +83,8 @@ function Calendar({
                   "h-7 w-7 p-0"
                 )}
                 onClick={() => {
-                  const nextYear = currentYear + 1;
-                  captionProps.onMonthChange(new Date(nextYear, captionProps.month.getMonth()));
+                  const nextYear = new Date(currentYear + 1, currentMonth.getMonth(), 1);
+                  props.onSelect && props.onSelect(nextYear);
                 }}
               >
                 <ChevronDown className="h-4 w-4" />
