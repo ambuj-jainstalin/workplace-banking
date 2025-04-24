@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
@@ -15,6 +14,12 @@ interface DateOfBirthPickerProps {
 }
 
 const DateOfBirthPicker = ({ dob, setDob, error }: DateOfBirthPickerProps) => {
+  const today = new Date();
+  const minDate = new Date();
+  minDate.setFullYear(today.getFullYear() - 70);
+  const maxDate = new Date();
+  maxDate.setFullYear(today.getFullYear() - 18);
+
   return (
     <div className="form-group">
       <Label htmlFor="dob" className="form-label">Date of Birth</Label>
@@ -38,21 +43,16 @@ const DateOfBirthPicker = ({ dob, setDob, error }: DateOfBirthPickerProps) => {
             mode="single"
             selected={dob}
             onSelect={setDob}
-            disabled={(date) => {
-              const today = new Date();
-              const minDate = new Date();
-              minDate.setFullYear(today.getFullYear() - 70);
-              const maxDate = new Date();
-              maxDate.setFullYear(today.getFullYear() - 18);
-              
-              return date > today || date < minDate;
-            }}
-            initialFocus
-            className="pointer-events-auto"
+            defaultMonth={maxDate}
+            fromDate={minDate}
+            toDate={maxDate}
+            captionLayout="dropdown-buttons"
+            className="rounded-md border"
           />
         </PopoverContent>
       </Popover>
       {error && <p className="form-error">{error}</p>}
+      <p className="text-xs text-gray-500 mt-1">You must be between 18 and 70 years old</p>
     </div>
   );
 };

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -63,52 +62,54 @@ const MobileVerification = () => {
   };
 
   return (
-    <div className="app-container">
+    <div className="min-h-screen flex flex-col">
       <LoanAppHeader 
         title="Mobile Verification" 
         subtitle="Please enter your mobile number to get started"
         progress={10}
       />
       
-      <main className="flex-1 px-4 py-6">
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="form-group">
-            <Label htmlFor="mobile-number" className="form-label">Mobile Number</Label>
-            <Input
-              id="mobile-number"
-              type="tel"
-              placeholder="e.g. 0712345678"
-              value={mobileNumber}
-              onChange={(e) => setMobileNumber(e.target.value)}
-              className={errors.mobile ? 'border-ncba-red' : ''}
-            />
-            {errors.mobile && <p className="form-error">{errors.mobile}</p>}
-            <p className="form-helper">Please enter your Safaricom, Airtel, or Telkom Kenya mobile number</p>
-          </div>
-          
-          <div className="form-group">
-            <div className="flex items-start space-x-2">
-              <Checkbox 
-                id="terms" 
-                checked={acceptTerms}
-                onCheckedChange={(checked) => setAcceptTerms(checked === true)}
+      <main className="flex-1 flex justify-center items-start py-6">
+        <div className="w-full max-w-md px-4">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="form-group">
+              <Label htmlFor="mobile-number" className="form-label">Mobile Number</Label>
+              <Input
+                id="mobile-number"
+                type="tel"
+                placeholder="e.g. 0712345678"
+                value={mobileNumber}
+                onChange={(e) => setMobileNumber(e.target.value)}
+                className={errors.mobile ? 'border-ncba-red' : ''}
               />
-              <div>
-                <Label 
-                  htmlFor="terms" 
-                  className="text-sm font-normal cursor-pointer"
-                >
-                  I agree to the NCBA Bank <a href="#" className="text-ncba-blue underline">Terms of Service</a> and <a href="#" className="text-ncba-blue underline">Privacy Policy</a>
-                </Label>
-                {errors.terms && <p className="form-error">{errors.terms}</p>}
+              {errors.mobile && <p className="form-error">{errors.mobile}</p>}
+              <p className="form-helper">Please enter your Safaricom, Airtel, or Telkom Kenya mobile number</p>
+            </div>
+            
+            <div className="form-group">
+              <div className="flex items-start space-x-2">
+                <Checkbox 
+                  id="terms" 
+                  checked={acceptTerms}
+                  onCheckedChange={(checked) => setAcceptTerms(checked === true)}
+                />
+                <div>
+                  <Label 
+                    htmlFor="terms" 
+                    className="text-sm font-normal cursor-pointer"
+                  >
+                    I agree to the NCBA Bank <a href="#" className="text-ncba-blue underline">Terms of Service</a> and <a href="#" className="text-ncba-blue underline">Privacy Policy</a>
+                  </Label>
+                  {errors.terms && <p className="form-error">{errors.terms}</p>}
+                </div>
               </div>
             </div>
-          </div>
-          
-          <Button type="submit" className="btn-primary mt-6">
-            Continue
-          </Button>
-        </form>
+            
+            <Button type="submit" className="btn-primary mt-6">
+              Continue
+            </Button>
+          </form>
+        </div>
       </main>
       
       <LoanAppFooter />

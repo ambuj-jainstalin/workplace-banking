@@ -1,10 +1,10 @@
-
 import * as React from "react";
-import { ChevronLeft, ChevronRight, ChevronUp, ChevronDown } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { DayPicker } from "react-day-picker";
 
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
@@ -14,14 +14,16 @@ function Calendar({
   showOutsideDays = true,
   ...props
 }: CalendarProps) {
+  const [month, setMonth] = React.useState<Date>(props.defaultMonth || new Date());
+
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
-      className={cn("p-3 pointer-events-auto", className)}
+      className={cn("p-3", className)}
       classNames={{
         months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
         month: "space-y-4",
-        caption: "flex justify-center pt-1 relative items-center space-x-2",
+        caption: "flex justify-center pt-1 relative items-center",
         caption_label: "text-sm font-medium",
         nav: "space-x-1 flex items-center",
         nav_button: cn(
@@ -40,12 +42,11 @@ function Calendar({
           buttonVariants({ variant: "ghost" }),
           "h-9 w-9 p-0 font-normal aria-selected:opacity-100"
         ),
-        day_range_end: "day-range-end",
         day_selected:
           "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
         day_today: "bg-accent text-accent-foreground",
         day_outside:
-          "day-outside text-muted-foreground opacity-50 aria-selected:bg-accent/50 aria-selected:text-muted-foreground aria-selected:opacity-30",
+          "text-muted-foreground opacity-50",
         day_disabled: "text-muted-foreground opacity-50",
         day_range_middle:
           "aria-selected:bg-accent aria-selected:text-accent-foreground",
@@ -54,51 +55,81 @@ function Calendar({
       }}
       components={{
         Caption: ({ displayMonth }) => {
-          const currentMonth = displayMonth;
-          const currentYear = currentMonth.getFullYear();
-          const currentMonthName = currentMonth.toLocaleString('default', { month: 'long' });
-          
+          const months = [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December",
+          ];
+
+          const years = Array.from({ length: 53 }, (_, i) => {
+            const year = new Date().getFullYear() - 70 + i;
+            return { value: year.toString(), label: year.toString() };
+          });
+
           return (
-            <div className="flex items-center justify-center space-x-2">
-              <button 
-                type="button" 
-                className={cn(
-                  buttonVariants({ variant: "ghost", size: "sm" }),
-                  "h-7 w-7 p-0"
-                )}
-                onClick={() => {
-                  const prevYear = new Date(currentYear - 1, currentMonth.getMonth(), 1);
+            <div className="flex justify-center gap-2">
+              <Select
+                value={displayMonth.getMonth().toString()}
+                onValueChange={(value) => {
+                  const newMonth = new Date(displayMonth);
+                  newMonth.setMonth(parseInt(value));
+                  setMonth(newMonth);
                   if (props.onMonthChange) {
-                    props.onMonthChange(prevYear);
+                    props.onMonthChange(newMonth);
                   }
                 }}
               >
-                <ChevronUp className="h-4 w-4" />
-              </button>
-              
-              <div className="text-sm font-medium">{currentMonthName} {currentYear}</div>
-              
-              <button 
-                type="button" 
-                className={cn(
-                  buttonVariants({ variant: "ghost", size: "sm" }),
-                  "h-7 w-7 p-0"
-                )}
-                onClick={() => {
-                  const nextYear = new Date(currentYear + 1, currentMonth.getMonth(), 1);
+                <SelectTrigger className="w-[110px]">
+                  <SelectValue>{months[displayMonth.getMonth()]}</SelectValue>
+                </SelectTrigger>
+                <SelectContent>
+                  {months.map((month, index) => (
+                    <SelectItem key={month} value={index.toString()}>
+                      {month}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
+              <Select
+                value={displayMonth.getFullYear().toString()}
+                onValueChange={(value) => {
+                  const newMonth = new Date(displayMonth);
+                  newMonth.setFullYear(parseInt(value));
+                  setMonth(newMonth);
                   if (props.onMonthChange) {
-                    props.onMonthChange(nextYear);
+                    props.onMonthChange(newMonth);
                   }
                 }}
               >
-                <ChevronDown className="h-4 w-4" />
-              </button>
+                <SelectTrigger className="w-[90px]">
+                  <SelectValue>{displayMonth.getFullYear()}</SelectValue>
+                </SelectTrigger>
+                <SelectContent>
+                  {years.map((year) => (
+                    <SelectItem key={year.value} value={year.value}>
+                      {year.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
           );
         },
         IconLeft: ({ ..._props }) => <ChevronLeft className="h-4 w-4" />,
         IconRight: ({ ..._props }) => <ChevronRight className="h-4 w-4" />,
       }}
+      month={month}
+      onMonthChange={setMonth}
       {...props}
     />
   );

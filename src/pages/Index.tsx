@@ -1,46 +1,51 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
+import LoanAppFooter from '@/components/LoanAppFooter';
 
 const Index = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-ncba-lightBlue">
-      <div className="flex-1 flex flex-col items-center justify-center p-6 text-center">
-        <div className="mb-8">
-          <img 
-            src="/ncba-logo.png" 
-            alt="NCBA Bank" 
-            className="h-16 mx-auto mb-6" 
-            onError={(e) => {
-              const target = e.target as HTMLImageElement;
-              target.src = "data:image/svg+xml;charset=UTF-8,%3Csvg width='200' height='50' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='200' height='50' fill='%23003B70'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='18' fill='white' text-anchor='middle' dominant-baseline='middle'%3ENCBA BANK%3C/text%3E%3C/svg%3E";
-            }}
-          />
-          <h1 className="text-3xl font-bold text-ncba-blue mb-4">Personal Loan Application</h1>
-          <p className="text-lg text-gray-600 max-w-md mx-auto">
-            Quick, simple, and secure way to apply for a personal loan with NCBA Bank.
-          </p>
-        </div>
-        
-        <div className="w-full max-w-xs space-y-4">
-          <Button 
-            onClick={() => navigate('/mobile-verification')}
-            className="w-full py-6 text-lg bg-ncba-blue hover:bg-ncba-blue/90"
-          >
-            Start Application
-          </Button>
+    <div className="min-h-screen flex flex-col">
+      <div className="absolute top-4 left-4 z-10">
+        <img 
+          src="/ncba-bank-uganda-logo-png_seeklogo-550938.png" 
+          alt="NCBA Bank" 
+          className="h-12" 
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.src = "data:image/svg+xml;charset=UTF-8,%3Csvg width='200' height='50' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='200' height='50' fill='%23003B70'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='18' fill='white' text-anchor='middle' dominant-baseline='middle'%3ENCBA BANK%3C/text%3E%3C/svg%3E";
+          }}
+        />
+      </div>
+      
+      <div className="flex-1 flex flex-col items-center justify-center p-6 text-center bg-gradient-to-b from-white to-ncba-lightBlue">
+        <div className="w-full max-w-md mx-auto">
+          <div className="mb-8">
+            <h1 className="text-3xl font-bold text-ncba-blue mb-4">Personal Loan Application</h1>
+            <p className="text-lg text-gray-600 max-w-md mx-auto">
+              Quick, simple, and secure way to apply for a personal loan with NCBA Bank.
+            </p>
+          </div>
           
-          <p className="text-sm text-gray-500">
-            By continuing, you agree to our <a href="#" className="text-ncba-blue underline">Terms & Conditions</a> and <a href="#" className="text-ncba-blue underline">Privacy Policy</a>.
-          </p>
+          <div className="w-full max-w-xs mx-auto space-y-4">
+            <Button 
+              onClick={() => navigate('/mobile-verification')}
+              className="w-full py-6 text-lg bg-ncba-blue hover:bg-ncba-blue/90"
+            >
+              Start Application
+            </Button>
+            
+            <p className="text-sm text-gray-500">
+              By continuing, you agree to our <a href="#" className="text-ncba-blue underline">Terms & Conditions</a> and <a href="#" className="text-ncba-blue underline">Privacy Policy</a>.
+            </p>
+          </div>
         </div>
       </div>
       
-      <div className="bg-white py-8 px-4">
-        <div className="max-w-md mx-auto">
+      <div className="bg-white py-8">
+        <div className="max-w-md mx-auto px-4">
           <h2 className="text-xl font-semibold text-center text-ncba-blue mb-6">Why Choose NCBA Loans?</h2>
           
           <div className="grid grid-cols-2 gap-4">
@@ -87,14 +92,7 @@ const Index = () => {
         </div>
       </div>
       
-      <footer className="bg-ncba-blue text-white py-6 px-4 text-center">
-        <p className="text-sm">&copy; {new Date().getFullYear()} NCBA Bank. All rights reserved.</p>
-        <div className="flex justify-center gap-4 mt-2 text-xs">
-          <a href="#" className="hover:underline">Help</a>
-          <a href="#" className="hover:underline">Terms</a>
-          <a href="#" className="hover:underline">Privacy</a>
-        </div>
-      </footer>
+      <LoanAppFooter />
     </div>
   );
 };

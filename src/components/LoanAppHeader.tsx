@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { cn } from '@/lib/utils';
 
@@ -20,9 +19,9 @@ const LoanAppHeader: React.FC<LoanAppHeaderProps> = ({
   return (
     <div className={cn("px-4 py-6", className)}>
       {logo && (
-        <div className="flex justify-center mb-4">
+        <div className="flex justify-start mb-4">
           <img 
-            src="/ncba-logo.png" 
+            src="/ncba-bank-uganda-logo-png_seeklogo-550938.png" 
             alt="NCBA Bank" 
             className="h-10" 
             onError={(e) => {

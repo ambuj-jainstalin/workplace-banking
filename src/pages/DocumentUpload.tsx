@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -307,25 +306,17 @@ const DocumentUpload = () => {
   };
 
   return (
-    <div className="app-container">
+    <div className="min-h-screen flex flex-col">
       <LoanAppHeader 
-        title={
-          currentStep === 'id' ? 'Document Verification' :
-          currentStep === 'face' ? 'Face Verification' :
-          currentStep === 'employer' ? 'Employment Information' :
-          'Employment Documents'
-        }
-        subtitle={
-          currentStep === 'id' ? 'Please upload your identification documents' :
-          currentStep === 'face' ? 'Let\'s verify your identity' :
-          currentStep === 'employer' ? 'Tell us where you work' :
-          'Upload your employment documents'
-        }
+        title="Document Upload" 
+        subtitle="Please upload the required documents"
         progress={getProgress()}
       />
       
-      <main className="flex-1 px-4 py-6">
-        {renderCurrentStep()}
+      <main className="flex-1 flex justify-center items-start py-6">
+        <div className="w-full max-w-md px-4">
+          {renderCurrentStep()}
+        </div>
       </main>
       
       <LoanAppFooter />

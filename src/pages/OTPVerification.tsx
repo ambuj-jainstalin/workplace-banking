@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -82,47 +81,49 @@ const OTPVerification = () => {
   };
 
   return (
-    <div className="app-container">
+    <div className="min-h-screen flex flex-col">
       <LoanAppHeader 
         title="Verify Your Mobile Number" 
         subtitle="Please enter the verification code sent to your mobile"
         progress={20}
       />
       
-      <main className="flex-1 px-4 py-6">
-        <div className="text-center mb-6">
-          <div className="text-sm text-gray-600 mb-1">Code sent to</div>
-          <div className="font-medium">{mobileNumber}</div>
-        </div>
-        
-        <div className="space-y-8">
-          <OTPInput
-            length={6}
-            onComplete={handleOTPComplete}
-            className="justify-center gap-2"
-          />
+      <main className="flex-1 flex justify-center items-start py-6">
+        <div className="w-full max-w-md px-4">
+          <div className="text-center mb-6">
+            <div className="text-sm text-gray-600 mb-1">Code sent to</div>
+            <div className="font-medium">{mobileNumber}</div>
+          </div>
           
-          <div className="text-center">
-            <p className="text-sm text-gray-600 mb-2">
-              Didn't receive the code?
-            </p>
-            <Button
-              variant="link"
-              onClick={handleResendOTP}
-              disabled={countdown > 0 || isResending}
-              className="text-ncba-blue"
-            >
-              {isResending ? (
-                <span className="flex items-center">
-                  <span className="h-4 w-4 rounded-full border-2 border-ncba-blue border-t-transparent animate-spin mr-2"></span>
-                  Resending...
-                </span>
-              ) : countdown > 0 ? (
-                `Resend code in ${countdown}s`
-              ) : (
-                'Resend Code'
-              )}
-            </Button>
+          <div className="space-y-8">
+            <OTPInput
+              length={6}
+              onComplete={handleOTPComplete}
+              className="justify-center gap-2"
+            />
+            
+            <div className="text-center">
+              <p className="text-sm text-gray-600 mb-2">
+                Didn't receive the code?
+              </p>
+              <Button
+                variant="link"
+                onClick={handleResendOTP}
+                disabled={countdown > 0 || isResending}
+                className="text-ncba-blue"
+              >
+                {isResending ? (
+                  <span className="flex items-center">
+                    <span className="h-4 w-4 rounded-full border-2 border-ncba-blue border-t-transparent animate-spin mr-2"></span>
+                    Resending...
+                  </span>
+                ) : countdown > 0 ? (
+                  `Resend code in ${countdown}s`
+                ) : (
+                  'Resend Code'
+                )}
+              </Button>
+            </div>
           </div>
         </div>
       </main>
