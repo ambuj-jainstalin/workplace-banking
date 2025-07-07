@@ -11,8 +11,8 @@ const Index = () => {
       <div className="absolute top-4 left-4 z-10">
         <img 
           src="/ncba-bank-uganda-logo-png_seeklogo-550938.png" 
-          alt="NCBA Bank" 
-          className="h-12" 
+          alt="ACME Bank" 
+          className="h-8" 
           onError={(e) => {
             const target = e.target as HTMLImageElement;
             target.src = "data:image/svg+xml;charset=UTF-8,%3Csvg width='200' height='50' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='200' height='50' fill='%23003B70'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='18' fill='white' text-anchor='middle' dominant-baseline='middle'%3ENCBA BANK%3C/text%3E%3C/svg%3E";
@@ -25,7 +25,7 @@ const Index = () => {
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-ncba-blue mb-4">Personal Loan Application</h1>
             <p className="text-lg text-gray-600 max-w-md mx-auto">
-              Quick, simple, and secure way to apply for a personal loan with NCBA Bank.
+              Quick, simple, and secure way to apply for a personal loan with ACME Bank.
             </p>
           </div>
           
@@ -46,7 +46,7 @@ const Index = () => {
       
       <div className="bg-white py-8">
         <div className="max-w-md mx-auto px-4">
-          <h2 className="text-xl font-semibold text-center text-ncba-blue mb-6">Why Choose NCBA Loans?</h2>
+          <h2 className="text-xl font-semibold text-center text-ncba-blue mb-6">Why Choose ACME Loans?</h2>
           
           <div className="grid grid-cols-2 gap-4">
             <div className="text-center p-4">

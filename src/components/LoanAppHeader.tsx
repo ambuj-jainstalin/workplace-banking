@@ -22,8 +22,8 @@ const LoanAppHeader: React.FC<LoanAppHeaderProps> = ({
         <div className="flex justify-start mb-4">
           <img 
             src="/ncba-bank-uganda-logo-png_seeklogo-550938.png" 
-            alt="NCBA Bank" 
-            className="h-10" 
+            alt="ACME Bank" 
+            className="h-7" 
             onError={(e) => {
               const target = e.target as HTMLImageElement;
               target.src = "data:image/svg+xml;charset=UTF-8,%3Csvg width='200' height='50' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='200' height='50' fill='%23003B70'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='18' fill='white' text-anchor='middle' dominant-baseline='middle'%3ENCBA BANK%3C/text%3E%3C/svg%3E";

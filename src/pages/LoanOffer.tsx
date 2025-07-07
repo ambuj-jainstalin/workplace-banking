@@ -139,7 +139,7 @@ const LoanOffer = () => {
               <div className="border rounded-lg p-4 max-h-60 overflow-y-auto">
                 <h3 className="font-semibold mb-2">Terms and Conditions</h3>
                 <div className="text-xs text-gray-600 space-y-2">
-                  <p>This Personal Loan Agreement ("Agreement") is entered into between you, the borrower, and NCBA Bank ("Lender"), on the date of your acceptance of this offer.</p>
+                  <p>This Personal Loan Agreement ("Agreement") is entered into between you, the borrower, and NCBA BANK ("Lender"), on the date of your acceptance of this offer.</p>
                   
                   <h4 className="font-medium mt-3">1. Loan Details</h4>
                   <p>The Lender agrees to provide you with a personal loan under the terms and conditions set forth in this Agreement.</p>

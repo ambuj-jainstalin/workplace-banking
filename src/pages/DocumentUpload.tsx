@@ -16,6 +16,8 @@ const DocumentUpload = () => {
   
   const [idFront, setIdFront] = useState<File | null>(null);
   const [idBack, setIdBack] = useState<File | null>(null);
+  const [passportFront, setPassportFront] = useState<File | null>(null);
+  const [passportBack, setPassportBack] = useState<File | null>(null);
   const [faceVerificationComplete, setFaceVerificationComplete] = useState(false);
   const [selectedEmployer, setSelectedEmployer] = useState('');
   const [payslips, setPayslips] = useState<File[]>([]);
@@ -40,7 +42,16 @@ const DocumentUpload = () => {
       toast({
         variant: "destructive",
         title: "Missing Documents",
-        description: "Please upload both front and back sides of your ID",
+        description: "Please upload both front and back sides of your National ID",
+      });
+      return;
+    }
+
+    if (!passportFront || !passportBack) {
+      toast({
+        variant: "destructive",
+        title: "Missing Documents",
+        description: "Please upload both front and back sides of your Passport",
       });
       return;
     }
@@ -48,13 +59,13 @@ const DocumentUpload = () => {
     // Simulate OCR processing
     toast({
       title: "Processing ID",
-      description: "We're verifying your ID...",
+      description: "We're verifying your documents...",
     });
     
     setTimeout(() => {
       toast({
-        title: "ID Verified",
-        description: "Your ID has been successfully verified",
+        title: "Documents Verified",
+        description: "Your ID documents have been successfully verified",
       });
       setCurrentStep('face');
     }, 2000);
@@ -137,30 +148,56 @@ const DocumentUpload = () => {
             <div className="mb-6">
               <h2 className="section-title">ID Verification</h2>
               <p className="text-sm text-gray-600 mb-4">
-                Please upload clear images of your National ID (front and back)
+                Please upload clear images of your National ID and Passport
               </p>
               
-              <div className="space-y-4">
-                <DocumentUploader
-                  title="National ID (Front)"
-                  description="Upload a clear photo of the front side of your ID"
-                  accept="image/*"
-                  onUpload={setIdFront}
-                />
-                
-                <DocumentUploader
-                  title="National ID (Back)"
-                  description="Upload a clear photo of the back side of your ID"
-                  accept="image/*"
-                  onUpload={setIdBack}
-                />
+              <div className="space-y-8">
+                {/* National ID Section */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold">National ID</h3>
+                  <div className="space-y-4">
+                    <DocumentUploader
+                      title="National ID (Front)"
+                      description="Upload a clear photo of the front side of your National ID"
+                      accept="image/*"
+                      onUpload={setIdFront}
+                    />
+                    
+                    <DocumentUploader
+                      title="National ID (Back)"
+                      description="Upload a clear photo of the back side of your National ID"
+                      accept="image/*"
+                      onUpload={setIdBack}
+                    />
+                  </div>
+                </div>
+
+                {/* Passport Section */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold">Passport</h3>
+                  <div className="space-y-4">
+                    <DocumentUploader
+                      title="Passport (Front)"
+                      description="Upload a clear photo of the front side of your Passport"
+                      accept="image/.pdf/*"
+                      onUpload={setPassportFront}
+                    />
+                    
+                    <DocumentUploader
+                      title="Passport (Back)"
+                      description="Upload a clear photo of the back side of your Passport"
+                      accept="image/pdf/*"
+                      onUpload={setPassportBack}
+                    />
+                  </div>
+                </div>
               </div>
             </div>
             
             <Button 
               onClick={handleIdUpload} 
               className="btn-primary w-full"
-              disabled={!idFront || !idBack}
+              disabled={!idFront || !idBack || !passportFront || !passportBack}
             >
               Continue
             </Button>
@@ -225,49 +262,61 @@ const DocumentUpload = () => {
         return (
           <>
             <div className="mb-6">
-              <h2 className="section-title">Employment Documents</h2>
+              <h2 className="section-title">Document Upload</h2>
               <p className="text-sm text-gray-600 mb-4">
-                Please upload the required employment documents
+                Please upload the required documents for verification
               </p>
               
-              <div className="space-y-4">
-                <DocumentUploader
-                  title="Payslip (Most Recent)"
-                  description="Upload your most recent payslip"
-                  accept="image/*,.pdf"
-                  onUpload={(file) => setPayslips([...payslips, file])}
-                />
-                
-                <DocumentUploader
-                  title="Payslip (2nd Month)"
-                  description="Upload your payslip from last month"
-                  accept="image/*,.pdf"
-                  onUpload={(file) => setPayslips([...payslips, file])}
-                />
-                
-                <DocumentUploader
-                  title="Payslip (3rd Month)"
-                  description="Upload your payslip from two months ago"
-                  accept="image/*,.pdf"
-                  onUpload={(file) => setPayslips([...payslips, file])}
-                />
-                
-                <DocumentUploader
-                  title="Employment Letter"
-                  description="Upload your employment confirmation letter"
-                  accept="image/*,.pdf"
-                  onUpload={setEmploymentLetter}
-                />
-              </div>
-              
-              <div className="mt-6 bg-ncba-lightBlue p-4 rounded-lg">
-                <h3 className="text-sm font-medium mb-2">Account Statement</h3>
-                <p className="text-sm text-gray-600 mb-3">
-                  We'll automatically fetch your bank statement via our secure system
-                </p>
-                <div className="flex items-center">
-                  <Check className="h-5 w-5 text-ncba-green mr-2" />
-                  <span className="text-sm">Statement will be fetched securely (no download required)</span>
+              <div className="space-y-8">
+                {/* Employment Documents Section */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold">Employment Documents</h3>
+                  <div className="space-y-4">
+                    <DocumentUploader
+                      title="Employment Letter"
+                      description="Upload your current employment letter"
+                      accept="image/*,.pdf"
+                      onUpload={setEmploymentLetter}
+                    />
+                    
+                    <DocumentUploader
+                      title="Payslip"
+                      description="Upload your most recent payslip"
+                      accept="image/*,.pdf"
+                      onUpload={(file) => setPayslips([...payslips, file])}
+                    />
+                    <DocumentUploader
+                      title="Payslip"
+                      description="Upload your most recent payslip"
+                      accept="image/*,.pdf"
+                      onUpload={(file) => setPayslips([...payslips, file])}
+                    />
+                    <DocumentUploader
+                      title="Payslip"
+                      description="Upload your most recent payslip"
+                      accept="image/*,.pdf"
+                      onUpload={(file) => setPayslips([...payslips, file])}
+                    />
+                  </div>
+                </div>
+
+                {/* Financial Documents Section */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold">Financial Documents</h3>
+                  <div className="space-y-4">
+                    <DocumentUploader
+                      title="Bank Statement (Last 1 Months)"
+                      description="Upload your bank statement for the last 3 months"
+                      accept=".pdf"
+                      onUpload={(file) => {
+                        // Handle bank statement upload
+                        toast({
+                          title: "Bank Statement Uploaded",
+                          description: "Your bank statement has been uploaded successfully",
+                        });
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -275,16 +324,9 @@ const DocumentUpload = () => {
             <Button 
               onClick={handleSubmitDocuments} 
               className="btn-primary w-full"
-              disabled={isProcessing || payslips.length < 3 || !employmentLetter}
+              disabled={!employmentLetter || payslips.length === 0}
             >
-              {isProcessing ? (
-                <span className="flex items-center justify-center">
-                  <span className="h-5 w-5 rounded-full border-2 border-white border-t-transparent animate-spin mr-2"></span>
-                  Processing...
-                </span>
-              ) : (
-                'Submit Application'
-              )}
+              {isProcessing ? 'Processing...' : 'Submit Documents'}
             </Button>
           </>
         );

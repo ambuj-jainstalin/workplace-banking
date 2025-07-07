@@ -98,7 +98,7 @@ const MobileVerification = () => {
                     htmlFor="terms" 
                     className="text-sm font-normal cursor-pointer"
                   >
-                    I agree to the NCBA Bank <a href="#" className="text-ncba-blue underline">Terms of Service</a> and <a href="#" className="text-ncba-blue underline">Privacy Policy</a>
+                    I agree to the ACME Bank <a href="#" className="text-ncba-blue underline">Terms of Service</a> and <a href="#" className="text-ncba-blue underline">Privacy Policy</a>
                   </Label>
                   {errors.terms && <p className="form-error">{errors.terms}</p>}
                 </div>
